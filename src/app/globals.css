@@ -18,10 +18,25 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: "Courier New", monospace;
+  cursor: crosshair;
+}
+
+a {
+  cursor: inherit;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer components {
+  .neon-hover {
+    padding: 2px 4px;
+  }
+  .neon-hover:hover {
+    color: #000000; /* Black text for contrast */
+    background-color: #39ff14; /* Neon green with opacity */
   }
 }
