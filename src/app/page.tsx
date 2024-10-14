@@ -71,6 +71,24 @@ function Notification() {
 }
 
 export default function Component() {
+  const handleResumeDownload = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/Samuel Sarzaba Resume.pdf');
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Samuel Sarzaba Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black text-white p-8 flex items-center justify-center">
       <Notification />
@@ -109,7 +127,7 @@ export default function Component() {
           <div>
             <a
               href="/Samuel Sarzaba Resume.pdf"
-              download
+              onClick={handleResumeDownload}
               className="neon-hover"
             >
               resume
