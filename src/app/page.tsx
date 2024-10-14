@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link'
-import { LucideMail, LucideLinkedin } from 'lucide-react'
+import { LucideMail, LucideLinkedin, LucideGithub} from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 function formatDateTime() {
@@ -34,7 +34,7 @@ function TypingEffect({ text }: { text: string }) {
         clearInterval(intervalId)
         return prev
       })
-    }, 100) // Adjust typing speed here (milliseconds)
+    }, 100)
 
     return () => clearInterval(intervalId)
   }, [text])
@@ -46,25 +46,47 @@ function TypingEffect({ text }: { text: string }) {
   )
 }
 
+function Notification() {
+  const [isVisible, setIsVisible] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false)
+    }, 5000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (!isVisible) return null
+
+  return (
+    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-white text-black px-4 py-2 rounded shadow-lg">
+      <p className="text-sm">Website under construction. Only the resume link is functional.</p>
+    </div>
+  )
+}
+
 export default function Component() {
   return (
     <div className="min-h-screen bg-black text-white p-8 flex items-center justify-center">
+      <Notification />
       <div className="w-full flex flex-col items-center" style={{ maxWidth: '250px' }}>
         <TypingEffect text="samuel sarzaba" />
         <div className="mb-12 text-sm">
           {formatDateTime()}
         </div>
         <nav className="space-y-2 text-sm mb-6 w-full">
-          <div><Link href="/projects">projects</Link></div>
-          <div><Link href="/skills">skills</Link></div>
-          <div><Link href="/experience">experience</Link></div>
-          <div><Link href="/education">education</Link></div>
-          <div><Link href="/about">about</Link></div>
-          <div><a href="/Samuel Sarzaba Resume.pdf" download>resume</a></div>
+          <div><span className="text-gray-500 cursor-not-allowed neon-hover">projects</span></div>
+          <div><span className="text-gray-500 cursor-not-allowed neon-hover">skills</span></div>
+          <div><span className="text-gray-500 cursor-not-allowed neon-hover">experience</span></div>
+          <div><span className="text-gray-500 cursor-not-allowed neon-hover">education</span></div>
+          <div><span className="text-gray-500 cursor-not-allowed neon-hover">about</span></div>
+          <div><a href="/Samuel Sarzaba Resume.pdf" download className="neon-hover">resume</a></div>
         </nav>
         <div className="flex space-x-4">
           <Link href="mailto:samuelsarzaba@gmail.com"><LucideMail className="w-5 h-5" /></Link>
           <Link href="https://www.linkedin.com/in/samuel-sarzaba/"><LucideLinkedin className="w-5 h-5" /></Link>
+          <Link href="https://github.com/samuelsarzaba"><LucideGithub className="w-5 h-5" /></Link>
         </div>
       </div>
     </div>
