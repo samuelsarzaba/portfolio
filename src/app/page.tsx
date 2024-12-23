@@ -1,87 +1,50 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faWindowMinimize, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export const runtime = "edge";
 
 function formatDateTime() {
   const now = new Date();
-  const options: Intl.DateTimeFormatOptions = {
-    timeZone: "America/New_York",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  };
-  const [date, time] = now.toLocaleString("en-US", options).split(", ");
-  const [timeWithoutAmPm, amPm] = time.split(" ");
-  return `${date}, ${timeWithoutAmPm}${amPm.toLowerCase()} VA`;
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+  const day = days[now.getDay()];
+  const month = months[now.getMonth()];
+  const date = now.getDate();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+
+  return `Last login: ${day} ${month} ${date} ${hours}:${minutes}:${seconds} on tty2`;
 }
 
-function TypingEffect({ text }: { text: string }) {
-  const [displayText, setDisplayText] = useState("");
-
-  useEffect(() => {
-    let index = 0;
-    const intervalId = setInterval(() => {
-      setDisplayText((prev) => {
-        if (index < text.length) {
-          index++;
-          return text.slice(0, index);
-        }
-        clearInterval(intervalId);
-        return prev;
-      });
-    }, 100);
-
-    return () => clearInterval(intervalId);
-  }, [text]);
-
-  return (
-    <div className="bg-white text-black text-2xl font-bold py-1 px-3 inline-block mb-4">
-      {displayText}
-    </div>
-  );
-}
-
-function Notification() {
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (!isVisible) return null;
-
-  return (
-    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-white text-black px-4 py-2 rounded shadow-lg">
-      <p className="text-sm">
-        Website under construction. Only the resume link is functional.
-      </p>
-    </div>
-  );
-}
 
 export default function Component() {
   return (
-    <div className="min-h-screen bg-black text-white p-8 flex items-center justify-center">
-      <Notification />
+    <div className="flex min-h-screen items-center justify-center p-8 text-white">
       <div
-        className="w-full flex flex-col items-center"
-        style={{ maxWidth: "250px" }}
+        className="flex w-full max-w-[250px] flex-col items-center"
       >
-        <TypingEffect text="samuel sarzaba" />
-        <div className="mb-12 text-sm">{formatDateTime()}</div>
+        <div className="relative -mx-8 mb-8 w-[calc(100%+4rem)] text-sm sm:-mx-16 sm:w-[calc(100%+8rem)]">
+          <div className="absolute -top-6 right-0 flex gap-2">
+            <FontAwesomeIcon icon={faWindowMinimize} className="w-3 h-3 cursor-pointer hover:text-gray-400" />
+            <FontAwesomeIcon icon={faXmark} className="w-4 h-4 cursor-pointer hover:text-gray-400" />
+          </div>
+          <div className="border border-white p-2 space-y-1">
+            <div>Portfolio login: samuelsarzaba</div>
+            <div>Password:</div>
+            <div>{formatDateTime()}</div>
+            <div className="flex">
+              <span>[samuelsarzaba@Portfolio ~]$&nbsp;</span>
+              <span className="w-2 h-5 bg-white cursor-blink"></span>
+            </div>
+          </div>
+        </div>
         <nav className="space-y-2 text-sm mb-6 w-full">
           <div>
             <span className="text-gray-500 cursor-not-allowed neon-hover">
