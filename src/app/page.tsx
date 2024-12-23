@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { LucideMail, LucideLinkedin, LucideGithub } from "lucide-react";
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 export const runtime = "edge";
 
@@ -118,13 +120,13 @@ export default function Component() {
         </nav>
         <div className="flex space-x-4">
           <Link href="mailto:samuelsarzaba@gmail.com">
-            <LucideMail className="w-5 h-5" />
+            <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5" />
           </Link>
           <Link href="https://www.linkedin.com/in/samuel-sarzaba/">
-            <LucideLinkedin className="w-5 h-5" />
+            <FontAwesomeIcon icon={faLinkedin} className="w-5 h-5" />
           </Link>
           <Link href="https://github.com/samuelsarzaba">
-            <LucideGithub className="w-5 h-5" />
+            <FontAwesomeIcon icon={faGithub} className="w-5 h-5" />
           </Link>
         </div>
       </div>
