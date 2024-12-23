@@ -78,7 +78,7 @@ export default function Component() {
           </div>
           <div>
             <a
-              href="https://files.catbox.moe/ygwcwk.pdf"
+              href="/Samuel_Sarzaba_Resume.pdf"
               download
               className="neon-hover"
             >
