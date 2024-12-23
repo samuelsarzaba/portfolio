@@ -8,23 +8,28 @@ import { faWindowMinimize, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export const runtime = "edge";
 
-function formatDateTime() {
-  const now = new Date();
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  
-  const day = days[now.getDay()];
-  const month = months[now.getMonth()];
-  const date = now.getDate();
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const seconds = now.getSeconds().toString().padStart(2, '0');
+import { useState, useEffect } from "react";
 
-  return `Last login: ${day} ${month} ${date} ${hours}:${minutes}:${seconds} on tty2`;
-}
+const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+const formatDateTime = (date: Date) => {
+  const day = DAYS[date.getDay()];
+  const month = MONTHS[date.getMonth()];
+  const dateNum = date.getDate();
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+
+  return `${day} ${month} ${dateNum} ${hours}:${minutes}:${seconds}`;
+};
 
 export default function Component() {
+  const [time, setTime] = useState<string | null>(null);
+
+  useEffect(() => {
+    setTime(formatDateTime(new Date()));
+  }, []);
   return (
     <div className="flex min-h-screen items-center justify-center p-8 text-white">
       <div
@@ -38,7 +43,7 @@ export default function Component() {
           <div className="border border-white p-2 space-y-1">
             <div>Portfolio login: samuelsarzaba</div>
             <div>Password:</div>
-            <div>{formatDateTime()}</div>
+            <div>Last login: {time} on tty2</div>
             <div className="flex">
               <span>[samuelsarzaba@Portfolio ~]$&nbsp;</span>
               <span className="w-2 h-5 bg-white cursor-blink"></span>
