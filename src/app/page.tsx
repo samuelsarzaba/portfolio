@@ -48,6 +48,11 @@ export default function Component() {
 
   useEffect(() => {
     setTime(formatDateTime(new Date()));
+
+    const terminal = document.querySelector('.terminal-input');
+    if (terminal) {
+      terminal.textContent = '';
+    }
   }, []);
   return (
     <div className="flex min-h-screen items-center justify-center p-8 text-white">
