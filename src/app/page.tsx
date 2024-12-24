@@ -37,7 +37,7 @@ export default function Component() {
       >
         <div className="relative -mx-8 mb-8 w-[calc(100%+4rem)] text-sm sm:-mx-16 sm:w-[calc(100%+8rem)]">
           <div className="absolute -top-6 right-0 flex gap-2">
-            <FontAwesomeIcon icon={faWindowMinimize} className="w-3 h-3 cursor-pointer hover:text-gray-400" />
+            <FontAwesomeIcon icon={faWindowMinimize} className="w-3 h-4 cursor-pointer hover:text-gray-400" />
             <FontAwesomeIcon icon={faXmark} className="w-4 h-4 cursor-pointer hover:text-gray-400" />
           </div>
           <div className="border border-white p-2 space-y-1">
